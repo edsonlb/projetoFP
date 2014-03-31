@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Pessoas{% endblock titulo %}
+
+{% block conteudo %}
+<div align="center">
+  <form role="form">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-10">
+          <input type="text" class="form-control" id="textoBusca" placeholder="Digite um texto para a busca...">
+        </div>
+        <div class="col-md-2" align="center">
+          <button type="submit" class="btn btn-primary">Pesquisar <span class="glyphicon glyphicon-search"></span></button>
+        </div>
+      </div>
+    </div>  
+  </form>
+  
+  <a href="/pessoas/adicionar/" class="btn btn-warning">Cadastra Pessoa</a>
+
+</div>
+<hr>
+<div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>E-Mail</th>
+            <th>Telefone</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for pessoa in pessoas %}
+          <tr>
+            <td>{{ pessoa.nome }}</td>
+            <td>{{ pessoa.email }}</td>
+            <td>{{ pessoa.telefone }}</td>
+          </tr>
+        {% endfor %}  
+        </tbody>
+      </table>
+</div><!-- FIM TABELA -->
+
+{% endblock conteudo %}

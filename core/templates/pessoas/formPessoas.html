@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Formulário da Pessoa{% endblock titulo %}
+
+{% block conteudo %}
+<form class="form-horizontal" action="/pessoas/salvar/" method="POST" role="form">{% csrf_token %}
+
+    <input type="hidden" id="codigo" value="{{ pessoa.pk|default_if_none:'0' }}">
+
+    <div class="form-group">
+        <label for="idNome" class="col-sm-2 control-label">Nome</label>
+        <div class="col-sm-10">
+            <input name="nome" id="idNome" value="{{ pessoa.nome }}" type="text" class="form-control"  placeholder="Nome Completo...">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="idLogradouro" class="col-sm-2 control-label">Logradouro</label>
+        <div class="col-sm-10">
+            <input name="logradouro" id="idLogradouro" value="{{ pessoa.logradouro|default_if_none:'' }}" type="text" class="form-control"  placeholder="Rua, Número, Bairro e etc...">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="idTelefone" class="col-sm-2 control-label">Contatos</label>
+        <div class="col-sm-10">
+            <div class="col-sm-5">
+                <input name="telefone" id="idTelefone" value="{{ pessoa.telefone|default_if_none:'' }}" type="text" class="form-control"  placeholder="(00) 0-0000-0000" data-mask="(99) 9-9999-9999">
+            </div>
+            <div class="col-sm-5">
+                <input name="email" id="idEmail" value="{{ pessoa.email|default_if_none:'' }}" type="email" class="form-control" placeholder="nome@dominio.com">
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+
+    <div align="center">
+        <button type="submit" class="btn btn-success">Salvar Registro</button>
+    </div>
+</form>
+{% endblock conteudo %}

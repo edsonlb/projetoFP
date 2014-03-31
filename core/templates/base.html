@@ -1,0 +1,43 @@
+{% load staticfiles %} <!-- PARA USAR O CAMINHO PADRAO STATIC_URL -->
+
+<!DOCTYPE html>
+<html lang="pt_BR">
+  <head>
+    <meta charset="utf-8">
+
+    <title>{% block titulo %}{% endblock titulo %} - Financeiro Pessoal</title>
+
+    <!-- CSS -->
+    <link rel="shortcut icon" href="{{ STATIC_URL }}img/favicon.ico">
+    <link href="{{ STATIC_URL }}bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ STATIC_URL }}css/jasny-bootstrap.min.css" rel="stylesheet">
+    <!-- FIM CSS -->
+
+  </head>
+
+  <body>
+    <!-- MENU -->
+    <a href="/pessoas/">Pessoas</a> | <a href="#">Contas</a> | <a href="#">Fluxo de Caixa</a>
+    <!-- FIM MENU -->
+    <br />
+    <hr>
+      <!-- CONTEUDO -->
+        {% block conteudo %}{% endblock conteudo %}
+      <!-- FIM CONTEUDO -->
+    <hr>
+
+    <!-- RODAPE -->
+    <footer>
+      <div align="center">&copy; Edson Lopes</div>
+    </footer>
+    <!-- FIM RODAPE -->
+
+    <!-- JavaScript -->
+    <script src="{{ STATIC_URL }}js/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}js/core.js"></script>
+    <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{ STATIC_URL }}js/jasny-bootstrap.min.js"></script>
+    <!-- FIM JavaScript -->
+    
+  </body>
+</html>
