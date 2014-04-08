@@ -15,26 +15,6 @@ def pessoaListar(request):
 def pessoaAdicionar(request):
     return render(request, 'pessoas/formPessoas.html')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 def pessoaSalvar(request):
     if request.method == 'POST':
         codigo = request.POST.get('codigo', '0')
