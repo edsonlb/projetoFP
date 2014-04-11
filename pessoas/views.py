@@ -6,11 +6,36 @@ def index(request):
 
 def pessoaListar(request):
     pessoas = Pessoa.objects.all()[0:10]
-    # TESTE LOCAL PARA VERIFICAR SE A TABELA ESTA LISTANDO
-    #pessoas = []
-    #pessoas.append(Pessoa(nome='UNIFRAN', email='MAIL'))
-    #pessoas.append(Pessoa(nome='CRUZEIRO'))
     return render(request, 'pessoas/listaPessoas.html', {'pessoas': pessoas})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def pessoaAdicionar(request):
     return render(request, 'pessoas/formPessoas.html')
