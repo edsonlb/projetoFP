@@ -5,7 +5,7 @@
 {% block conteudo %}
 <form class="form-horizontal" action="/pessoas/salvar/" method="POST" role="form">{% csrf_token %}
 
-    <input type="hidden" id="codigo" value="{{ pessoa.pk|default_if_none:'0' }}">
+    <input type="hidden" id="codigo" name="codigo" value="{{ pessoa.pk|default_if_none:'0' }}">
 
     <div class="form-group">
         <label for="idNome" class="col-sm-2 control-label">Nome</label>
@@ -23,21 +23,21 @@
 
     <div class="form-group">
         <label for="idTelefone" class="col-sm-2 control-label">Contatos</label>
-        <div class="col-sm-10">
             <div class="col-sm-5">
                 <input name="telefone" id="idTelefone" value="{{ pessoa.telefone|default_if_none:'' }}" type="text" class="form-control"  placeholder="(00) 0-0000-0000" data-mask="(99) 9-9999-9999">
             </div>
             <div class="col-sm-5">
                 <input name="email" id="idEmail" value="{{ pessoa.email|default_if_none:'' }}" type="email" class="form-control" placeholder="nome@dominio.com">
             </div>
-        </div>
     </div>
 
     <hr>
 
-
     <div align="center">
         <button type="submit" class="btn btn-success">Salvar Registro</button>
+        {% if pessoa.pk > 0 %}
+        <a class="btn btn-danger" href="/pessoas/excluir/{{ pessoa.pk }}/">Excluir</a>
+        {% endif %}
     </div>
 </form>
 {% endblock conteudo %}

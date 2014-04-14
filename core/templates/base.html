@@ -17,13 +17,36 @@
 
   <body>
     <!-- MENU -->
-    <a href="/pessoas/">Pessoas</a> | <a href="#">Contas</a> | <a href="#">Fluxo de Caixa</a>
+    <nav class="navbar navbar-inverse" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#IDnavbar">
+            <span class="sr-only">Menu Mobile</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Financeiro Pessoal</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="IDnavbar">
+          <ul class="nav navbar-nav">
+            <li><a href="/pessoas/"> <spam class="glyphicon glyphicon-user"></spam> Pessoas</a></li>
+            <li><a href="#"> <spam class="glyphicon glyphicon-inbox"></spam> Contas</a></li>
+            <li><a href="#"> <spam class="glyphicon glyphicon-stats"></spam> Fluxo de Caixa</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
     <!-- FIM MENU -->
     <br />
     <hr>
+      <div class="container">
       <!-- CONTEUDO -->
         {% block conteudo %}{% endblock conteudo %}
       <!-- FIM CONTEUDO -->
+      </div>
     <hr>
 
     <!-- RODAPE -->
