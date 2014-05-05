@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Pessoas{% endblock titulo %}
+
+{% block conteudo %}
+<div align="center"> 
+  <form role="form" method="POST" action="/caixas/pesquisar/">{% csrf_token %}
+    <div class="form-group">
+      <div class="row">
+        <div class="col-md-10">
+          <input type="text" class="form-control" id="textoBusca" name="textoBusca" value="{{ textoBusca }}" placeholder="Digite um texto para a busca...">
+        </div>
+        <div class="col-md-2" align="center">
+          <button type="submit" class="btn btn-primary">Pesquisar <span class="glyphicon glyphicon-search"></span></button>
+        </div>
+      </div>
+    </div>  
+  </form>
+  
+  <a href="/caixas/adicionar/" class="btn btn-warning">Cadastra Conta</a>
+
+</div>
+<hr>
+<div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Pessoa</th>
+            <th>R$</th>
+            <th>Descrição</th>
+            <th>Data</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for conta in contas %}
+          <tr>
+            <td><a href="/caixas/editar/{{ conta.pk }}">{{ conta.pessoa.nome }}</a></td>
+            <td>{{ caixa.valor }}</td>
+            <td>{{ caixa.descricao }}</td>
+            <td>{{ caixa.data }}</td>
+            <td>{{ caixa.tipo }}</td>
+          </tr>
+        {% endfor %}  
+        </tbody>
+      </table>
+</div><!-- FIM TABELA -->
+
+{% endblock conteudo %}
