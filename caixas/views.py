@@ -36,10 +36,7 @@ def caixaSalvar(request):
         conta.tipo = request.POST.get('tipo', '').upper()
         conta.descricao = request.POST.get('descricao', 'CONTA SEM DESCRIÇÃO').upper()
         conta.valor = request.POST.get('valor', '0.00').replace(',','.')
-        conta.data = datetime.strptime(request.POST.get('data', ''), "%d/%m/%Y %H:%M:%S") 
-
-        print datetime.strptime(request.POST.get('data', ''), "%d/%m/%Y %H:%M:%S")
-
+        conta.data = datetime.strptime(request.POST.get('data', ''), '%d/%m/%Y %H:%M:%S')
 
         conta.save()
     return HttpResponseRedirect('/caixas/')
@@ -50,30 +47,27 @@ def caixaPesquisar(request):
 
         try:
             if textoBusca == 'TUDO':
-                pessoas = Pessoa.objects.all()
-            else: 
-                pessoas = Pessoa.objects.filter(
-                    (Q(nome__contains=textoBusca) |  
-                    Q(email__contains=textoBusca) | 
-                    Q(telefone__contains=textoBusca) | 
-                    Q(logradouro__contains=textoBusca))).order_by('-nome')  #BUSCA POR NOME OU EMAIL OU TELEFONE OU LOGRADOURO... E É ORDENADO POR NOME.
+                contas = Conta.objects.all()
+            else:
+                sql = ("select cc.* from caixas_conta cc inner join pessoas_pessoa pp on pp.id = cc.pessoa_id where pp.nome like '%s' or cc.descricao like '%s' order by data") % ('%%'+textoBusca+'%%', '%%'+textoBusca+'%%')
+                contas = Conta.objects.raw(sql)
         except:
-            pessoas = []
+            contas = []
 
-        return render(request, 'caixas/listaCaixas.html', {'pessoas': pessoas, 'textoBusca': textoBusca})
+        return render(request, 'caixas/listaCaixas.html', {'contas': contas, 'textoBusca': textoBusca})
 
 def caixaEditar(request, pk=0):
     try:
-        pessoa = Pessoa.objects.get(pk=pk)
+        conta = Conta.objects.get(pk=pk)
     except:
         return HttpResponseRedirect('/caixas/')
 
-    return render(request, 'caixas/formPessoas.html', {'pessoa': pessoa})
+    return render(request, 'caixas/formCaixas.html', {'conta': conta})
 
 def caixaExcluir(request, pk=0):
     try:
-        pessoa = Pessoa.objects.get(pk=pk)
-        pessoa.delete()
+        conta = Conta.objects.get(pk=pk)
+        conta.delete()
         return HttpResponseRedirect('/caixas/')
     except:
         return HttpResponseRedirect('/caixas/')
