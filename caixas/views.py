@@ -6,9 +6,11 @@ https://www.facebook.com/groups/pythonmania/
 """
 
 from django.shortcuts import render, HttpResponseRedirect
+from datetime import datetime
 from django.db.models import Q #Queries complexas
 from caixas.models import Conta
 from pessoas.models import Pessoa
+
 
 def caixaListar(request):
     contas = Conta.objects.all()[0:10]
@@ -33,8 +35,11 @@ def caixaSalvar(request):
         conta.pessoa_id = request.POST.get('pessoa_id', '1')
         conta.tipo = request.POST.get('tipo', '').upper()
         conta.descricao = request.POST.get('descricao', 'CONTA SEM DESCRIÇÃO').upper()
-        conta.valor = request.POST.get('valor', '')
-        conta.data = request.POST.get('data', '')
+        conta.valor = request.POST.get('valor', '0.00').replace(',','.')
+        conta.data = datetime.strptime(request.POST.get('data', ''), "%d/%m/%Y %H:%M:%S") 
+
+        print datetime.strptime(request.POST.get('data', ''), "%d/%m/%Y %H:%M:%S")
+
 
         conta.save()
     return HttpResponseRedirect('/caixas/')

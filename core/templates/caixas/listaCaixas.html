@@ -36,10 +36,10 @@
         {% for conta in contas %}
           <tr>
             <td><a href="/caixas/editar/{{ conta.pk }}">{{ conta.pessoa.nome }}</a></td>
-            <td>{{ caixa.valor }}</td>
-            <td>{{ caixa.descricao }}</td>
-            <td>{{ caixa.data }}</td>
-            <td>{{ caixa.tipo }}</td>
+            <td>{{ conta.valor }}</td>
+            <td>{{ conta.descricao }}</td>
+            <td>{{ conta.data|date:"d/m/Y" }}</td>
+            <td>{{ conta.tipo }}</td>
           </tr>
         {% endfor %}  
         </tbody>
