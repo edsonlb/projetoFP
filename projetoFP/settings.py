@@ -6,7 +6,7 @@ https://www.facebook.com/groups/pythonmania/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 import os
-from settings_segredo import *
+from settings_segredo import *  # Veja: settings_segredo_DEMO.py
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
