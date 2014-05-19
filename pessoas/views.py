@@ -9,9 +9,6 @@ from django.shortcuts import render, HttpResponseRedirect
 from django.db.models import Q #Queries complexas
 from pessoas.models import Pessoa
 
-def index(request):
-    return render(request, 'index.html')
-
 def pessoaListar(request):
     pessoas = Pessoa.objects.all()[0:10]
 

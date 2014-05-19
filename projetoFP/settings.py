@@ -6,13 +6,16 @@ https://www.facebook.com/groups/pythonmania/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 import os
+from settings_segredo import *
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'nz4v!uqn!t8g@czh%twe*hoj9e(fi@yii*4uk9iy@pyw8p-mf_'
+SECRET_KEY = SECRET_KEY_SEGREDO
+PAGSEGURO_EMAIL = PAGSEGURO_EMAIL_SEGREDO
+PAGSEGURO_TOKEN = PAGSEGURO_TOKEN_SEGREDO
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

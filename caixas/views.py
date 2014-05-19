@@ -1,4 +1,4 @@
-# This Python file uses the following encoding: utf-8
+# coding: utf-8
 # ANOTAÇÃO PARA USAR CARACTERES ESPECIAIS AQUI. (MESMO PARA ANOTAÇÕES.)
 """ 
 @edsonlb
@@ -10,7 +10,8 @@ from datetime import datetime
 from django.db.models import Q #Queries complexas
 from caixas.models import Conta
 from pessoas.models import Pessoa
-
+from djpg import Cart, Item
+from djpg.signals import transaction_paid
 
 def caixaListar(request):
     contas = Conta.objects.all()[0:10]
@@ -111,11 +112,31 @@ def fluxodecaixa(request):
 
     return render(request, 'caixas/fluxo_de_caixa.html')
 
+#-----------------------------------------
+
+def meu_pagamento(request, pk=0):
+
+    conta = Conta.objects.get(pk=pk)
+
+    cart = Cart(reference=conta.pk, redirect_url='https://pgseguro.herokuapp.com/caixas/')
+    item = Item(id=conta.pk, amount=conta.valor, description=conta.descricao, quantity=1)
+    cart.add_item(item)
+
+    code = cart.checkout()
+    if code:
+        return cart.proceed(code)
+
+def on_paid(sender, **kwargs):
+    transaction = kwargs.pop('transaction')
+
+    conta = Conta.objects.get(pk=transaction['reference'])
+    conta.pagseguro = transaction['code']
+    conta.descricao += ' [PAGO]'
+    conta.save()
+
+transaction_paid.connect(on_paid)
 
 
-
-    
-
-
-
-
+# CASO VOCÊ GOSTE! ESTUDE POR AQUI PARA SABER TODAS AS OPÇÕES!
+# https://github.com/mstrcnvs/djpg
+# https://pagseguro.uol.com.br/v2/guia-de-integracao/consulta-de-transacoes-por-codigo.html#!rmcl

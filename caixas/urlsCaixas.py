@@ -16,4 +16,6 @@ urlpatterns = patterns('caixas.views',
     url(r'^fluxo/$', 'caixaFluxo'),
     url(r'^fluxo/busca/$', 'fluxodecaixa'),
     url(r'^fluxo/relatorio/$', 'fluxodecaixa'),
+
+    url(r'^pagamento/(?P<pk>\d+)/$', 'meu_pagamento'),
 )

@@ -36,7 +36,11 @@
         {% for conta in contas %}
           <tr>
             <td><a href="/caixas/editar/{{ conta.pk }}">{{ conta.pessoa.nome }}</a></td>
+            {% if conta.tipo == 'E' %}
+            <td><a href="/caixas/pagamento/{{ conta.pk }}" target="_blank">{{ conta.valor }}</a></td>
+            {% else %}
             <td>{{ conta.valor }}</td>
+            {% endif %}
             <td>{{ conta.descricao }}</td>
             <td>{{ conta.data|date:"d/m/Y" }}</td>
             <td>{{ conta.tipo }}</td>
