@@ -1,0 +1,30 @@
+<h3>Fluxo de Caixa <small>{{ dataInicial|date:"d/m/Y" }} até {{ dataFinal|date:"d/m/Y" }}</small></h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Pessoa</th>
+            <th>R$</th>
+            <th>Descrição</th>
+            <th>Data</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for conta in contas %}
+          <tr>
+            <td><a href="/caixas/editar/{{ conta.pk }}">{{ conta.pessoa.nome }}</a></td>
+            <td>{{ conta.valor }}</td>
+            <td>{{ conta.descricao }}</td>
+            <td>{{ conta.data|date:"d/m/Y" }}</td>
+            <td>{{ conta.tipo }}</td>
+          </tr>
+        {% endfor %} 
+          <tr>
+            <td><b>TOTAL:</b></td>
+            <td><b>{{ total }}</b></td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+        </tbody>
+      </table>

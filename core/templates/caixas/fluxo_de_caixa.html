@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Fluxo de Caixa{% endblock titulo %}
+
+{% block conteudo %}
+<h3>Fluxo de Caixa <small>Informe as datas abaixo</small></h3>
+<div align="center"> 
+  <form role="form" method="POST" action="/caixas/fluxo/busca/">{% csrf_token %}
+    <div class="form-group">
+      <div class="row">
+
+        <div class="col-md-6">
+          <p class="help-block">Data Inicial</p>
+          <input type="text" class="form-control" name="dataInicial" value="{{ dataInicial|date:"d/m/Y" }}" placeholder="01/01/2014">
+        </div>
+
+        <div class="col-md-6">
+          <p class="help-block">Data Final</p>
+          <input type="text" class="form-control" name="dataFinal" value="{{ dataFinal|date:"d/m/Y" }}" placeholder="01/01/2014">
+        </div>
+        
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Pesquisar <span class="glyphicon glyphicon-search"></span></button>  
+  </form>
+
+</div>
+<hr>
+<div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Pessoa</th>
+            <th>R$</th>
+            <th>Descrição</th>
+            <th>Data</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for conta in contas %}
+          <tr>
+            <td><a href="/caixas/editar/{{ conta.pk }}">{{ conta.pessoa.nome }}</a></td>
+            <td>{{ conta.valor }}</td>
+            <td>{{ conta.descricao }}</td>
+            <td>{{ conta.data|date:"d/m/Y" }}</td>
+            <td>{{ conta.tipo }}</td>
+          </tr>
+        {% endfor %} 
+          <tr>
+            <td><b>TOTAL:</b></td>
+            <td><b>{{ total }}</b></td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+        </tbody>
+      </table>
+</div><!-- FIM TABELA -->
+
+<form role="form" method="POST" action="/caixas/fluxo/relatorio/">{% csrf_token %}
+
+  <input type="hidden" name="relatorio" value="1" >
+  <input type="hidden" name="dataInicial" value="{{ dataInicial|date:"d/m/Y" }}" >
+  <input type="hidden" name="dataFinal" value="{{ dataFinal|date:"d/m/Y" }}" >
+
+  <button type="submit" class="btn btn-warning">Imprimir</button> 
+</form>
+
+{% endblock conteudo %}

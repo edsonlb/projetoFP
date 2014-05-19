@@ -12,4 +12,8 @@ urlpatterns = patterns('caixas.views',
     url(r'^pesquisar/$', 'caixaPesquisar'),
     url(r'^excluir/(?P<pk>\d+)/$', 'caixaExcluir'),
     url(r'^$', 'caixaListar'),
+
+    url(r'^fluxo/$', 'caixaFluxo'),
+    url(r'^fluxo/busca/$', 'fluxodecaixa'),
+    url(r'^fluxo/relatorio/$', 'fluxodecaixa'),
 )
